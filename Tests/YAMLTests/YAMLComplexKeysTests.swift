@@ -31,10 +31,10 @@ struct YAMLComplexKeysTests {
         do {
             let result = try YAML.parse(yaml2)
             // It likely parses but not as expected
-            print("Complex keys parsed as: \(result)")
+            // Complex keys are parsed as regular mappings with string keys
+            #expect(result.dictionary != nil)
         } catch {
             // Or it might throw an error
-            print("Complex keys error: \(error)")
             throw error
         }
     }

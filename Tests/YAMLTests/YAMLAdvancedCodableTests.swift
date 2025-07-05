@@ -214,7 +214,7 @@ struct YAMLAdvancedCodableTests {
         
         // Encode without explicit version
         let model = VersionedModel(data: "test data")
-        var encoder = YAMLEncoder()
+        let encoder = YAMLEncoder()
         let yaml = try encoder.encode(model)
         
         // Decode with version from userInfo

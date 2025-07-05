@@ -10,6 +10,7 @@
 [![Platform](https://img.shields.io/badge/platform-Linux-green.svg)](https://www.linux.org/)
 [![Platform](https://img.shields.io/badge/platform-Windows-green.svg)](https://www.microsoft.com/windows)
 [![Platform](https://img.shields.io/badge/platform-Android-green.svg)](https://www.android.com/)
+[![Build Status](https://github.com/edgeengineer/yaml/workflows/swift/badge.svg)](https://github.com/edgeengineer/yaml/actions/workflows/swift.yml)
 
 A robust YAML parser and manipulator for Swift 6.0 and higher, with full support for YAML 1.2 specification.
 
