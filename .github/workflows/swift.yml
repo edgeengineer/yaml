@@ -1,28 +1,21 @@
-name: swift
+name: Swift
 
-on:
-  push:
-    branches: [ main, master, develop ]
-  pull_request:
-    branches: [ main, master, develop ]
+on: [push]
 
 jobs:
-  # Build and test on multiple platforms
-  build-and-test:
+  build:
     name: Swift ${{ matrix.swift }} on ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
     strategy:
-      fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-        swift: ["6.0.0"]
+        os: [ubuntu-latest, macos-latest]
+        swift: ["6.0"]
+    runs-on: ${{ matrix.os }}
     steps:
-    - uses: actions/checkout@v4
-    - name: Setup Swift
-      uses: SwiftyLab/setup-swift@v1
-      with:
-        swift-version: ${{ matrix.swift }}
-    - name: Build
-      run: swift build -c release
-    - name: Run tests with Swift Testing
-      run: swift test
+      - uses: swift-actions/setup-swift@65540b95f51493d65f5e59e97dcef9629ddf11bf
+        with:
+          swift-version: ${{ matrix.swift }}
+      - uses: actions/checkout@v4
+      - name: Build
+        run: swift build
+      - name: Run tests
+        run: swift test
