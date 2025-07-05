@@ -1,0 +1,89 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@5.0.2
+  aws-cli: circleci/aws-cli@3.1.1
+
+executors:
+  node-executor:
+    docker:
+      - image: cimg/node:18.0
+    working_directory: ~/repo
+
+commands:
+  install-deps:
+    description: Install npm dependencies
+    steps:
+        - restore_cache:
+            keys:
+              - v1-dependencies-{{ checksum "package-lock.json" }}
+              - v1-dependencies-
+        - run:
+            name: Install Dependencies
+            command: npm ci
+        - save_cache:
+            paths:
+              - node_modules
+            key: v1-dependencies-{{ checksum "package-lock.json" }}
+
+jobs:
+  test:
+    executor: node-executor
+    steps:
+        - checkout
+        - install-deps
+        - run:
+            name: Run Tests
+            command: |
+              npm run test:ci
+              npm run test:coverage
+        - store_test_results:
+            path: test-results
+        - store_artifacts:
+            path: coverage
+            destination: coverage
+
+  build:
+    executor: node-executor
+    steps:
+        - checkout
+        - install-deps
+        - run:
+            name: Build Application
+            command: npm run build
+        - persist_to_workspace:
+            root: .
+            paths:
+              - dist
+              - package.json
+              - package-lock.json
+
+  deploy:
+    executor: node-executor
+    steps:
+        - attach_workspace:
+            at: .
+        - aws-cli/setup
+        - run:
+            name: Deploy to S3
+            command: |
+              aws s3 sync dist/ s3://$S3_BUCKET --delete
+              aws cloudfront create-invalidation \
+                --distribution-id $CLOUDFRONT_DISTRIBUTION_ID \
+                --paths "/*"
+
+workflows:
+  version: 2
+  test-build-deploy:
+    jobs:
+        - test:
+            context: aws-credentials
+        - build:
+            requires:
+              - test
+        - deploy:
+            requires:
+              - build
+            filters:
+              branches:
+                only: main

@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/code
+      - logvolume01:/var/log
+    environment:
+      FLASK_ENV: development
+    depends_on:
+      - redis
+      - db
+    
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
+    
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: myapp
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  logvolume01: {}
+  postgres_data:
+    driver: local
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
+    driver_opts:
+      foo: "1"
+      bar: "2"

@@ -1,0 +1,30 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+
+development:
+  <<: *default
+  database: myapp_development
+  username: myapp
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  host: localhost
+  port: 5432
+
+test:
+  <<: *default
+  database: myapp_test
+  username: myapp
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  host: localhost
+  min_messages: warning
+
+production:
+  <<: *default
+  database: myapp_production
+  username: myapp
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  host: <%= ENV['DATABASE_HOST'] %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 25 } %>
+  reaping_frequency: <%= ENV.fetch("DATABASE_REAPING_FREQUENCY") { 10 } %>
