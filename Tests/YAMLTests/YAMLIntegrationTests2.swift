@@ -1,10 +1,6 @@
 import Testing
 @testable import YAML
-#if canImport(FoundationEssentials)
-import FoundationEssentials
-#else
 import Foundation
-#endif
 
 @Suite("YAML Integration Tests - More Real World Configurations")
 struct YAMLIntegrationTests2 {
