@@ -1,8 +1,4 @@
-#if canImport(FoundationEssentials)
-import FoundationEssentials
-#else
 import Foundation
-#endif
 
 extension Character {
     var isHexDigit: Bool {
@@ -1182,7 +1178,7 @@ public final class YAMLParser {
         case "&":
             let anchorName = try parseAnchor()
             scanner.skipWhitespace()
-            var node = try parseInlineValue(indent: indent)
+            let node = try parseInlineValue(indent: indent)
             anchors[anchorName] = node
             return node
         default:
@@ -1231,7 +1227,6 @@ public final class YAMLParser {
         _ = scanner.advance()  // Skip the |
         
         // Check for optional indentation indicator
-        var explicitIndent: Int? = nil
         if let char = scanner.peek(), char.isNumber {
             var indentStr = ""
             while let char = scanner.peek(), char.isNumber {
@@ -1248,7 +1243,8 @@ public final class YAMLParser {
                 throw YAMLError.invalidYAML("Indentation indicator must be between 1 and 9, got: \(indentValue)")
             }
             
-            explicitIndent = indentValue
+            // TODO: Use explicitIndent value for parsing
+            _ = indentValue
         }
         
         scanner.skipToEndOfLine()
@@ -1300,7 +1296,6 @@ public final class YAMLParser {
         _ = scanner.advance()  // Skip the >
         
         // Check for optional indentation indicator
-        var explicitIndent: Int? = nil
         if let char = scanner.peek(), char.isNumber {
             var indentStr = ""
             while let char = scanner.peek(), char.isNumber {
@@ -1317,7 +1312,8 @@ public final class YAMLParser {
                 throw YAMLError.invalidYAML("Indentation indicator must be between 1 and 9, got: \(indentValue)")
             }
             
-            explicitIndent = indentValue
+            // TODO: Use explicitIndent value for parsing
+            _ = indentValue
         }
         
         scanner.skipToEndOfLine()

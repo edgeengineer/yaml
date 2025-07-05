@@ -1,8 +1,4 @@
-#if canImport(FoundationEssentials)
-import FoundationEssentials
-#else
 import Foundation
-#endif
 /// An encoder that encodes instances of data types to YAML.
 public struct YAMLEncoder {
     /// Options for customizing the encoding process.

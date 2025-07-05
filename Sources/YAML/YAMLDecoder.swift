@@ -1,8 +1,4 @@
-#if canImport(FoundationEssentials)
-import FoundationEssentials
-#else
 import Foundation
-#endif
 /// A decoder that decodes instances of data types from YAML objects.
 public struct YAMLDecoder {
     /// Options for customizing the decoding process.

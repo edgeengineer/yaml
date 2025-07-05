@@ -1,8 +1,4 @@
-#if canImport(FoundationEssentials)
-import FoundationEssentials
-#else
 import Foundation
-#endif
 
 /// A token representing a YAML event in the stream.
 public enum YAMLToken: Sendable, Equatable {

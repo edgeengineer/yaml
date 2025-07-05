@@ -1,8 +1,4 @@
-#if canImport(FoundationEssentials)
-import FoundationEssentials
-#else
 import Foundation
-#endif
 
 /// Errors that can occur during YAML parsing and processing.
 public enum YAMLError: Error, LocalizedError {

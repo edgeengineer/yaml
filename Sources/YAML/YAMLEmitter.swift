@@ -1,8 +1,4 @@
-#if canImport(FoundationEssentials)
-import FoundationEssentials
-#else
 import Foundation
-#endif
 /// A YAML emitter that converts YAMLNode structures to YAML-formatted strings.
 public final class YAMLEmitter {
     /// Options for controlling YAML output formatting.

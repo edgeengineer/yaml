@@ -1,8 +1,4 @@
-#if canImport(FoundationEssentials)
-import FoundationEssentials
-#else
 import Foundation
-#endif
 
 /// The main YAML namespace providing parsing and emitting functionality.
 public enum YAML {

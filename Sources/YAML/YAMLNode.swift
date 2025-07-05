@@ -1,8 +1,4 @@
-#if canImport(FoundationEssentials)
-import FoundationEssentials
-#else
 import Foundation
-#endif
 /// Represents a YAML node which can be a scalar, sequence, or mapping.
 /// 
 /// YAMLNode is the fundamental data structure in this library, representing

@@ -1,8 +1,4 @@
-#if canImport(FoundationEssentials)
-import FoundationEssentials
-#else
 import Foundation
-#endif
 /// A builder that constructs YAML nodes from streaming tokens.
 /// This can be used with YAMLStreamParser to build partial or complete YAML structures.
 public final class YAMLStreamBuilder: YAMLStreamParserDelegate {
