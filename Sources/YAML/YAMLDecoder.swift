@@ -211,7 +211,7 @@ private struct _YAMLKeyedDecodingContainer<K: CodingKey>: KeyedDecodingContainer
                 K(stringValue: key.convertFromSnakeCase())
             }
             
-        case .custom(let converter):
+        case .custom(_):
             // For custom decoding, we need to reverse the transformation
             // The converter expects to receive the Swift property name and return the YAML key
             // So we need to find which Swift property name would produce each YAML key
